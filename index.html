@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="minutes.js"></script>
+</head>
+<body class="w3-opacity w3-light-blue w3-center w3-padding">
+<article>
+  <div class="w3-light-green" ng-app="minutesApp" ng-controller="minutesCtrl">
+  <form novalidate>
+    DREAMBUILDERS TOASTMATERS CLUB MINUTES for
+    <input type="text" ng-model="user.date"></br>
+    6:58  Sgt. at Arms
+    <input type="text" ng-model="user.sgtAtArms">
+    announced a 2 minute warning.</br>
+    7 PM  Sgt. at Arms
+    <input type="text" ng-model="user.sgtAtArms">
+    called the meeting to attention.  Acting President/Presiding Officer
+    <input type="text" ng-model="user.president">
+    called the meeting to order.
+    </br>
+    7:02
+    <input type="text" ng-model="user.pledge">
+    led the club in the Pledge of Allegiance.
+    <input type="text" ng-model="user.pledgeNotes">
+    </br>
+    7:04  President
+    <input type="text" ng-model="user.president">
+    welcomed members and guests,
+    <input type="text" ng-model="user.guests">
+    </br>
+    During the business meeting,
+    <input type="text" ng-model="user.businessNotes">
+    </br>
+    7:15  Toastmaster
+    <input type="text" ng-model="user.toastmaster">
+    was called to the lecturn. She made her opening comments and adjusted the agenda.
+    </br>
+    7:20  General Evaluator
+    <input type="text" ng-model="user.generalEvaluator">
+    discussed her duties and called on her team of functionaries.
+    </br>
+    Grammarian:
+    <input type="text" ng-model="user.grammarian">
+    </br>
+    Word of the Day
+    <input type="text" ng-model="user.wordOfTheDay">
+    </br>
+    Ah Counter
+    <input type="text" ng-model="user.ahCounter">
+    </br>
+    Timer:
+    <input type="text" ng-model="user.timer">
+    </br>
+    7:28  Networking Session with Networking Master
+    <input type="text" ng-model="user.networkMaster">
+    </br>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6">Respondent</div>
+      <div class="w3-col s6">Time</div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent1"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent1Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent2"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent2Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent3"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent3Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent4"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent4Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent5"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.respondent5Time"></div>
+    </div>
+    7:48  Ten Minute Break</br>
+    7:58  The meeting was called back into session.</br>
+    8:05   Prepared Speech(es)
+    <div class="w3-center w3-row">
+      <div class="w3-col s6">Speaker</div>
+      <div class="w3-col s6">Time</div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker1"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker1Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker2"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker2Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker3"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker3Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker4"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker4Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker5"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.speaker5Time"></div>
+    </div>
+    8:09   Evaluation Session:
+    <div class="w3-center w3-row">
+      <div class="w3-col s6">Evaluator</div>
+      <div class="w3-col s6">Time</div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator1"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator1Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator2"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator2Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator3"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator3Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator4"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator4Time"></div>
+    </div>
+    <div class="w3-center w3-row">
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator5"></div>
+      <div class="w3-col s6"><input type="text" ng-model="user.evaluator5Time"></div>
+    </div>
+    General Evaluator
+    <input type="text" ng-model="user.generalEvaluator">
+    leads Evaulation Session.</br>
+    Grammarian
+    <input type="text" ng-model="user.grammarian">
+    noted use of the Word of the Day and Interesting Phrases.</br>
+    Ah Counter 
+    <input type="text" ng-model="user.ahCounter">
+    noted use of ahs and uhs, etc.</br>
+    Timer
+    <input type="text" ng-model="user.timer">
+    reported the length of Time spoken by Networking Session Respondents, speaker(s) and evaluator(s).</br>
+    In his/her report, General Evaluator
+    <input type="text" ng-model="user.GEnotes">
+    8:12   Toastmaster 
+    <input type="text" ng-model="user.toastmaster">
+    returned to the lecturn, made her closing comments and returned control to Acting President
+    <input type="text" ng-model="user.president">.</br>
+    8:15    President
+    <input type="text" ng-model="user.president">
+    called on guests
+    <input type="text" ng-model="user.guests">
+    to give their impression of the meeting.</br>
+    Notes:
+    <input type="text" ng-model="user.notes"></br>
+    Attendees were reminded to leave a tip for the servers. </br>
+    8:18 Meeting adjourned.</br>
+<input type="submit" class="w3-btn w3-ripple"></input>
+  </form>
+  </div>
+</article>
+</body>
