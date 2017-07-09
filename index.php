@@ -55,9 +55,55 @@
   $notes = ($_GET["notes"]);
   
   $today = date(DATE_W3C);
-  $toFile = fopen($today,"w") or die("Unable to open file!");
-  fwrite($toFile, "DREAMBUILDERS TOASTMATERS CLUB MINUTES for".$date."\n");// add all writes here
+  $toFile = fopen($today, "w") or die("Unable to open file!");
+  fwrite($toFile, "DREAMBUILDERS TOASTMATERS CLUB MINUTES for ".$date."\n");
+  fwrite($toFile, "6:58  Sgt. at Arms, ".$sgtAtArms." announced a 2 minute warning.\n");
+  fwrite($toFile, "7 PM  Sgt. at Arms, ".$sgtAtArms." called the meeting to attention.  Acting President/Presiding Officer\n");
+  fwrite($toFile, "".$president." called the meeting to order.\n");
+  fwrite($toFile, "7:02 ".$pledge." led the club in the Pledge of Allegiance.\n");
+  fwrite($toFile, "".$pledgeNotes."\n");
+  fwrite($toFile, "7:04  President ".$president." welcomed members and guests, ".$guests.".\n");
+  fwrite($toFile, "During the business meeting, ".$businessNotes."\n");
+  fwrite($toFile, "7:15  Toastmaster ".$toastmaster." was called to the lectern. He/She made his/her opening comments and adjusted the agenda.\n");
+  fwrite($toFile, "7:20  General Evaluator ".$generalEvaluator." discussed his/her duties and called on his/her team of functionaries.\n");
+  fwrite($toFile, "Grammarian: ".$grammarian."\n");
+  fwrite($toFile, "Word of the Day ".$wordOfTheDay."\n");
+  fwrite($toFile, "Ah Counter ".$ahCounter."\n");
+  fwrite($toFile, "Timer: ".$timer."\n");
+  fwrite($toFile, "7:28  Networking Session with Networking Master ".$networkMaster."\n");
+  fwrite($toFile, "Respondent / Time\n");
+  if ($respondent1 !== "") { fwrite($toFile, "".$respondent1." / ".$respondent1Time."\n"); }
+  if ($respondent2 !== "") { fwrite($toFile, "".$respondent2." / ".$respondent2Time."\n"); }
+  if ($respondent3 !== "") { fwrite($toFile, "".$respondent3." / ".$respondent3Time."\n"); }
+  if ($respondent4 !== "") { fwrite($toFile, "".$respondent4." / ".$respondent4Time."\n"); }
+  if ($respondent5 !== "") { fwrite($toFile, "".$respondent5." / ".$respondent5Time."\n"); }
+  fwrite($toFile, "7:48  Ten Minute Break\n");
+  fwrite($toFile, "7:58  The meeting was called back into session.\n");
+  fwrite($toFile, "8:05  Prepared Speech(es)\n");
+  fwrite($toFile, "Speaker / Time\n");
+  if ($speaker1 !== "") { fwrite($toFile, "".$speaker1." / ".$speaker1Time."\n"); }
+  if ($speaker2 !== "") { fwrite($toFile, "".$speaker2." / ".$speaker2Time."\n"); }
+  if ($speaker3 !== "") { fwrite($toFile, "".$speaker3." / ".$speaker3Time."\n"); }
+  if ($speaker4 !== "") { fwrite($toFile, "".$speaker4." / ".$speaker4Time."\n"); }
+  if ($speaker5 !== "") { fwrite($toFile, "".$speaker5." / ".$speaker5Time."\n"); }
+  fwrite($toFile, "8:09   Evaluation Session:\n");
+  fwrite($toFile, "Evaluator / Time\n");
+  if ($evaluator1 !== "") { fwrite($toFile, "".$evaluator1." / ".$evaluator1Time."\n"); }
+  if ($evaluator2 !== "") { fwrite($toFile, "".$evaluator2." / ".$evaluator2Time."\n"); }
+  if ($evaluator3 !== "") { fwrite($toFile, "".$evaluator3." / ".$evaluator3Time."\n"); }
+  if ($evaluator4 !== "") { fwrite($toFile, "".$evaluator4." / ".$evaluator4Time."\n"); }
+  if ($evaluator5 !== "") { fwrite($toFile, "".$evaluator5." / ".$evaluator5Time."\n"); }
+  fwrite($toFile, "General Evaluator ".$generalEvaluator." leads Evaulation Session.\n");
+  fwrite($toFile, "Grammarian, ".$grammarian.", noted use of the Word of the Day and Interesting Phrases.\n");
+  fwrite($toFile, "Ah Counter, ".$ahCounter.", noted use of ahs and uhs, etc.\n");
+  fwrite($toFile, "Timer, ".$timer.", reported the length of Time spoken by Networking Session Respondents, speaker(s) and evaluator(s).\n");
+  fwrite($toFile, "In ".$generalEvaluator." report, ".$GEnotes."\n");
+  fwrite($toFile, "8:12  Toastmaster ".$toastmaster." returned to the lectern, made her closing comments and returned control to Acting President ".$president.".\n");
+  fwrite($toFile, "8:15  President ".$president." called on guests ".$guests." to give their impression of the meeting.\n");
+  fwrite($toFile, "Notes: ".$notes."\n");
+  fwrite($toFile, "Attendees were reminded to leave a tip for the servers.\n8:18 Meeting adjourned.");
   fclose($toFile);
+  echo "Minutes Logged On Server";
 ?>
 <body class="w3-opacity w3-light-blue w3-center w3-padding">
 <article>
@@ -89,7 +135,7 @@
     </br>
     7:15  Toastmaster
     <input ng-model="user.toastmaster" name="toastmaster" type="text" value="<?php echo $toastmaster; ?>">
-    was called to the lecturn. She made her opening comments and adjusted the agenda.
+    was called to the lectern. She made her opening comments and adjusted the agenda.
     </br>
     7:20  General Evaluator
     <input ng-model="user.generalEvaluator" name="generalEvaluator" type="text" value="<?php echo $generalEvaluator; ?>">
@@ -198,11 +244,11 @@
     Timer
     <input ng-model="user.timer" name="timer" type="text" value="<?php echo $timer; ?>">
     reported the length of Time spoken by Networking Session Respondents, speaker(s) and evaluator(s).</br>
-    In his/her report, General Evaluator
+    In his/her report, the General Evaluator noted 
     <input ng-model="user.GEnotes" name="GEnotes" type="text" value="<?php echo $GEnotes; ?>">
     8:12   Toastmaster 
     <input ng-model="user.toastmaster" name="toastmaster" type="text" value="<?php echo $toastmaster; ?>">
-    returned to the lecturn, made her closing comments and returned control to Acting President
+    returned to the lectern, made her closing comments and returned control to Acting President
     <input ng-model="user.president" name="president" type="text" value="<?php echo $president; ?>">.</br>
     8:15    President
     <input ng-model="user.president" name="president" type="text" value="<?php echo $president; ?>">
@@ -213,7 +259,7 @@
     <input ng-model="user.notes" name="notes" type="text" value="<?php echo $notes; ?>"></br>
     Attendees were reminded to leave a tip for the servers. </br>
     8:18 Meeting adjourned.</br>
-<input type="submit" class="w3-btn w3-ripple" name="submit" value="Submit"></input>
+<input type="submit" class="w3-btn w3-ripple w3-white w3-hover-green" name="submit" value="Submit"></input>
   </form>
   </div>
 </article>
