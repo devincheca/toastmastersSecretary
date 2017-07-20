@@ -7,6 +7,9 @@
   <script src="minutes.js"></script>
 </head>
 <?php 
+  $pledge = "";// so minutes are no logged each time
+  $pledge = ($_GET["pledge"]);
+  if ($pledge != "") {
   $date = ($_GET["date"]);
   $sgtAtArms = ($_GET["sgtAtArms"]);
   $president = ($_GET["president"]);
@@ -53,22 +56,21 @@
   $evaluator5Time = ($_GET["evaluator5Time"]);
   $GEnotes = ($_GET["GEnotes"]);
   $notes = ($_GET["notes"]);
-  
   $today = date(DATE_W3C);
   $toFile = fopen($today, "w") or die("Unable to open file!");
   fwrite($toFile, "DREAMBUILDERS TOASTMATERS CLUB MINUTES for ".$date."\n");
   fwrite($toFile, "6:58  Sgt. at Arms, ".$sgtAtArms." announced a 2 minute warning.\n");
-  fwrite($toFile, "7 PM  Sgt. at Arms, ".$sgtAtArms." called the meeting to attention.  Acting President/Presiding Officer\n");
-  fwrite($toFile, "".$president." called the meeting to order.\n");
+  fwrite($toFile, "7PM  Sgt. at Arms, ".$sgtAtArms." called the meeting to attention.  Acting President/Presiding Officer");
+  fwrite($toFile, " ".$president." called the meeting to order.\n");
   fwrite($toFile, "7:02 ".$pledge." led the club in the Pledge of Allegiance.\n");
   fwrite($toFile, "".$pledgeNotes."\n");
-  fwrite($toFile, "7:04  President ".$president." welcomed members and guests, ".$guests.".\n");
+  fwrite($toFile, "7:04  President, ".$president.", welcomed members and guests, ".$guests.".\n");
   fwrite($toFile, "During the business meeting, ".$businessNotes."\n");
   fwrite($toFile, "7:15  Toastmaster ".$toastmaster." was called to the lectern. He/She made his/her opening comments and adjusted the agenda.\n");
   fwrite($toFile, "7:20  General Evaluator ".$generalEvaluator." discussed his/her duties and called on his/her team of functionaries.\n");
   fwrite($toFile, "Grammarian: ".$grammarian."\n");
-  fwrite($toFile, "Word of the Day ".$wordOfTheDay."\n");
-  fwrite($toFile, "Ah Counter ".$ahCounter."\n");
+  fwrite($toFile, "Word of the Day: ".$wordOfTheDay."\n");
+  fwrite($toFile, "Ah Counter: ".$ahCounter."\n");
   fwrite($toFile, "Timer: ".$timer."\n");
   fwrite($toFile, "7:28  Networking Session with Networking Master ".$networkMaster."\n");
   fwrite($toFile, "Respondent / Time\n");
@@ -93,18 +95,20 @@
   if ($evaluator3 !== "") { fwrite($toFile, "".$evaluator3." / ".$evaluator3Time."\n"); }
   if ($evaluator4 !== "") { fwrite($toFile, "".$evaluator4." / ".$evaluator4Time."\n"); }
   if ($evaluator5 !== "") { fwrite($toFile, "".$evaluator5." / ".$evaluator5Time."\n"); }
-  fwrite($toFile, "General Evaluator ".$generalEvaluator." leads Evaulation Session.\n");
+  fwrite($toFile, "General Evaluator ".$generalEvaluator." led the Evaulation Session.\n");
   fwrite($toFile, "Grammarian, ".$grammarian.", noted use of the Word of the Day and Interesting Phrases.\n");
   fwrite($toFile, "Ah Counter, ".$ahCounter.", noted use of ahs and uhs, etc.\n");
   fwrite($toFile, "Timer, ".$timer.", reported the length of Time spoken by Networking Session Respondents, speaker(s) and evaluator(s).\n");
   fwrite($toFile, "In ".$generalEvaluator." report, ".$GEnotes."\n");
-  fwrite($toFile, "8:12  Toastmaster ".$toastmaster." returned to the lectern, made her closing comments and returned control to Acting President ".$president.".\n");
-  fwrite($toFile, "8:15  President ".$president." called on guests ".$guests." to give their impression of the meeting.\n");
+  fwrite($toFile, "8:12  Toastmaster ".$toastmaster." returned to the lectern, made his/her closing comments and returned control to Acting President, ".$president.".\n");
+  fwrite($toFile, "8:15  President, ".$president.", called on guests ".$guests." to give their impression of the meeting.\n");
   fwrite($toFile, "Notes: ".$notes."\n");
   fwrite($toFile, "Attendees were reminded to leave a tip for the servers.\n8:18 Meeting adjourned.");
   fclose($toFile);
-  echo "Minutes Logged On Server";
+  echo "Minutes Logged On Server"; 
+  }
 ?>
+
 <body class="w3-opacity w3-light-blue w3-center w3-padding">
 <article>
   <div class="w3-light-green" ng-app="minutesApp" ng-controller="minutesCtrl">
