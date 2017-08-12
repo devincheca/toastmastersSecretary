@@ -2,11 +2,8 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-  <script src="minutes.js"></script>
-</head>
-<?php 
+<?php // some reason bob and qwerty are being echoed into the state of angular
   $pledge = "";// so minutes are no logged each time
   $pledge = ($_GET["pledge"]);
   if ($pledge != "") {
@@ -14,6 +11,7 @@
   $sgtAtArms = ($_GET["sgtAtArms"]);
   if ($sgtAtArms == "") { "Cossette Strassberg"; }
   $president = ($_GET["president"]);
+  if ($president == "") { "Joe Mamaradlo"; }
   $pledge = ($_GET["pledge"]);
   $pledgeNotes = ($_GET["pledgeNotes"]);
   $guests = ($_GET["guests"]);
@@ -107,11 +105,74 @@
   fclose($toFile);
   echo "Minutes Logged On Server"; 
   }
+  echo "<script>\n";
+  echo "var wholeDate = Date() + \"\";\n";
+  echo "var month = wholeDate.substr(4,3);\n";
+  echo "var day = wholeDate.substr(8,2);\n";
+  echo "var year = wholeDate.substr(11,4);\n";
+  echo "var finalDate = month + \" \" + day + \", \" + year;\n";
+  echo "var app = angular.module('minutesApp', []);\n";
+  echo "app.controller('minutesCtrl', function(\$scope) {\n";
+  echo "\$scope.master = {\n";
+  echo "date: finalDate,\n";
+  echo "sgtAtArms: \"".$sgtAtArms."\",\n";
+  echo "president: \"".$president."\",\n";
+  echo "pledge: \"".$pledge."\",\n";
+  echo "pledgeNotes: \"".$pledgeNotes."\",\n";
+  echo "guests: \"".$guests."\",\n";
+  echo "businessNotes: \"".$businessNotes."\",\n";
+  echo "toastmaster: \"".$toastmaster."\",\n";
+  echo "generalEvaluator: \"".$generalEvaluator."\",\n";
+  echo "grammarian: \"".$grammarian."\",\n";
+  echo "wordOfTheDay: \"".$wordOfTheDay."\",\n";
+  echo "ahCounter: \"".$ahCounter."\",\n";
+  echo "timer: \"".$timer."\",\n";
+  echo "networkMaster: \"".$networkMaster."\",\n";
+  echo "respondent1: \"".$respondent1."\",\n";
+  echo "respondent1Time: \"".$respondent1Time."\",\n";
+  echo "respondent2: \"".$respondent2."\",\n";
+  echo "respondent2Time: \"".$respondent2Time."\",\n";
+  echo "respondent3: \"".$respondent3."\",\n";
+  echo "respondent3Time: \"".$respondent3Time."\",\n";
+  echo "respondent4: \"".$respondent4."\",\n";
+  echo "respondent4Time: \"".$respondent4Time."\",\n";
+  echo "respondent5: \"".$respondent5."\",\n";
+  echo "respondent5Time: \"".$respondent5Time."\",\n";
+  echo "speaker1: \"".$speaker1."\",\n";
+  echo "speaker1Time: \"".$speaker1Time."\",\n";
+  echo "speaker2: \"".$speaker2."\",\n";
+  echo "speaker2Time: \"".$speaker2Time."\",\n";
+  echo "speaker3: \"".$speaker3."\",\n";
+  echo "speaker3Time: \"".$speaker3Time."\",\n";
+  echo "speaker4: \"".$speaker4."\",\n";
+  echo "speaker4Time: \"".$speaker4Time."\",\n";
+  echo "speaker5: \"".$speaker5."\",\n";
+  echo "speaker5Time: \"".$speaker5Time."\",\n";
+  echo "evaluator1: \"".$evaluator1."\",\n";
+  echo "evaluator1Time: \"".$evaluator1Time."\",\n";
+  echo "evaluator2: \"".$evaluator2."\",\n";
+  echo "evaluator2Time: \"".$evaluator2Time."\",\n";
+  echo "evaluator3: \"".$evaluator3."\",\n";
+  echo "evaluator3Time: \"".$evaluator3Time."\",\n";
+  echo "evaluator4: \"".$evaluator4."\",\n";
+  echo "evaluator4Time: \"".$evaluator4Time."\",\n";
+  echo "evaluator5: \"".$evaluator5."\",\n";
+  echo "evaluator5Time: \"".$evaluator5Time."\",\n";
+  echo "GEnotes: \"".$GEnotes."\",\n";
+  echo "notes: \"".$notes."\"\n";
+  echo "};\n";
+  echo "\$scope.reset = function() {\n";
+        echo "\$scope.user = angular.copy(\$scope.master);\n";
+    echo "};\n";
+    echo "\$scope.reset();\n";
+echo "});\n";
+  echo "</script>\n";
 ?>
 
-<body class="w3-opacity w3-light-blue w3-center w3-padding">
+</head>
+<body class="w3-light-blue w3-center w3-animate-opacity">
 <article>
-  <div class="w3-light-green" ng-app="minutesApp" ng-controller="minutesCtrl">
+  <div class="w3-blue" ng-app="minutesApp" ng-controller="minutesCtrl">
   <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     DREAMBUILDERS TOASTMATERS CLUB MINUTES for
     <input ng-model="user.date" name="date" type="text" value="<?php echo $date; ?>"></br>
@@ -127,15 +188,15 @@
     7:02
     <input ng-model="user.pledge" name="pledge" type="text" value="<?php echo $pledge; ?>">
     led the club in the Pledge of Allegiance.
-    <input ng-model="user.pledgeNotes" name="pledgeNotes" type="text" value="<?php echo $pledgeNotes; ?>">
+    <input ng-model="user.pledgeNotes" name="pledgeNotes" type="text" value="<?php echo $pledgeNotes; ?>" class="w3-animate-input">
     </br>
     7:04  President
     <input ng-model="user.president" name="president" type="text" value="<?php echo $president; ?>">
     welcomed members and guests,
-    <input ng-model="user.guests" name="guests" type="text" value="<?php echo $guests; ?>">
+    <input ng-model="user.guests" name="guests" type="text" value="<?php echo $guests; ?>" class="w3-animate-input">
     </br>
     During the business meeting,
-    <input ng-model="user.businessNotes" name="businessNotes" type="text" value="<?php echo $businessNotes; ?>">
+    <input ng-model="user.businessNotes" name="businessNotes" type="text" value="<?php echo $businessNotes; ?>" class="w3-animate-input">
     </br>
     7:15  Toastmaster
     <input ng-model="user.toastmaster" name="toastmaster" type="text" value="<?php echo $toastmaster; ?>">
@@ -249,7 +310,7 @@
     <input ng-model="user.timer" name="timer" type="text" value="<?php echo $timer; ?>">
     reported the length of Time spoken by Networking Session Respondents, speaker(s) and evaluator(s).</br>
     In his/her report, the General Evaluator noted 
-    <input ng-model="user.GEnotes" name="GEnotes" type="text" value="<?php echo $GEnotes; ?>">
+    <input ng-model="user.GEnotes" name="GEnotes" type="text" value="<?php echo $GEnotes; ?>" class="w3-animate-input">
     8:12   Toastmaster 
     <input ng-model="user.toastmaster" name="toastmaster" type="text" value="<?php echo $toastmaster; ?>">
     returned to the lectern, made her closing comments and returned control to Acting President
@@ -257,13 +318,13 @@
     8:15    President
     <input ng-model="user.president" name="president" type="text" value="<?php echo $president; ?>">
     called on guests
-    <input ng-model="user.guests" name="guests" type="text" value="<?php echo $guests; ?>">
+    <input ng-model="user.guests" name="guests" type="text" value="<?php echo $guests; ?>" class="w3-animate-input">
     to give their impression of the meeting.</br>
     Notes:
-    <input ng-model="user.notes" name="notes" type="text" value="<?php echo $notes; ?>"></br>
+    <input ng-model="user.notes" name="notes" type="text" value="<?php echo $notes; ?>" class="w3-animate-input"></br>
     Attendees were reminded to leave a tip for the servers. </br>
     8:18 Meeting adjourned.</br>
-<input type="submit" class="w3-btn w3-ripple w3-white w3-hover-green" name="submit" value="Submit"></input>
+<input type="submit" class="w3-btn w3-ripple w3-white w3-hover-green" name="submit" value="Save"></input>
   </form>
   </div>
 </article>
