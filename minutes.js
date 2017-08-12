@@ -1,9 +1,14 @@
+var wholeDate = Date() + "";
+var month = wholeDate.substr(4,3);
+var day = wholeDate.substr(8,2);
+var year = wholeDate.substr(11,4);
+var finalDate = month + " " + day + ", " + year;
 var app = angular.module('minutesApp', []);
 app.controller('minutesCtrl', function($scope) {
     $scope.master = {
-      date: Date(),
-      sgtAtArms: "",
-      president: "Joe",
+      date: finalDate,
+      sgtAtArms: "Cossette Strassberg",
+      president: "Joe Mamaradlo",
       pledge: "",
       pledgeNotes: "",
       guests: "",

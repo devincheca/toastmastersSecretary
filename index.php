@@ -12,6 +12,7 @@
   if ($pledge != "") {
   $date = ($_GET["date"]);
   $sgtAtArms = ($_GET["sgtAtArms"]);
+  if ($sgtAtArms == "") { "Cossette Strassberg"; }
   $president = ($_GET["president"]);
   $pledge = ($_GET["pledge"]);
   $pledgeNotes = ($_GET["pledgeNotes"]);
@@ -56,8 +57,7 @@
   $evaluator5Time = ($_GET["evaluator5Time"]);
   $GEnotes = ($_GET["GEnotes"]);
   $notes = ($_GET["notes"]);
-  $today = date(DATE_W3C);
-  $toFile = fopen($today, "w") or die("Unable to open file!");
+  $toFile = fopen($date, "w") or die("Unable to open file!");
   fwrite($toFile, "DREAMBUILDERS TOASTMATERS CLUB MINUTES for ".$date."\n");
   fwrite($toFile, "6:58  Sgt. at Arms, ".$sgtAtArms." announced a 2 minute warning.\n");
   fwrite($toFile, "7PM  Sgt. at Arms, ".$sgtAtArms." called the meeting to attention.  Acting President/Presiding Officer");
