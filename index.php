@@ -6,10 +6,12 @@
 <?php // some reason bob and qwerty are being echoed into the state of angular
   $pledge = "";// so minutes are no logged each time
   $pledge = ($_GET["pledge"]);
-  if ($date != "") {
+  if ($pledge != "") {
   $date = ($_GET["date"]);
   $sgtAtArms = ($_GET["sgtAtArms"]);
+  if ($sgtAtArms == "") { "Cossette Strassberg"; }
   $president = ($_GET["president"]);
+  if ($president == "") { "Joe Mamaradlo"; }
   $pledge = ($_GET["pledge"]);
   $pledgeNotes = ($_GET["pledgeNotes"]);
   $guests = ($_GET["guests"]);
@@ -101,6 +103,7 @@
   fwrite($toFile, "Notes: ".$notes."\n");
   fwrite($toFile, "Attendees were reminded to leave a tip for the servers.\n8:18 Meeting adjourned.");
   fclose($toFile);
+  echo "Minutes Logged On Server"; 
   }
   echo "<script>\n";
   echo "var wholeDate = Date() + \"\";\n";
