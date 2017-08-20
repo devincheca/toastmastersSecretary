@@ -12,6 +12,7 @@
   if ($sgtAtArms == "") { "Cossette Strassberg"; }
   $president = ($_GET["president"]);
   if ($president == "") { "Joe Mamaradlo"; }
+  $attendees = ($_GET["attendees"]);
   $pledge = ($_GET["pledge"]);
   $pledgeNotes = ($_GET["pledgeNotes"]);
   $guests = ($_GET["guests"]);
@@ -57,6 +58,7 @@
   $notes = ($_GET["notes"]);
   $toFile = fopen($date, "w") or die("Unable to open file!");
   fwrite($toFile, "DREAMBUILDERS TOASTMATERS CLUB MINUTES for ".$date."\n");
+  fwrite($toFile, "Attendees:".$attendees."\n");
   fwrite($toFile, "6:58  Sgt. at Arms, ".$sgtAtArms." announced a 2 minute warning.\n");
   fwrite($toFile, "7PM  Sgt. at Arms, ".$sgtAtArms." called the meeting to attention.  Acting President/Presiding Officer");
   fwrite($toFile, " ".$president." called the meeting to order.\n");
@@ -117,6 +119,7 @@
   echo "date: finalDate,\n";
   echo "sgtAtArms: \"".$sgtAtArms."\",\n";
   echo "president: \"".$president."\",\n";
+  echo "attendees: \"".$attendees."\",\n";
   echo "pledge: \"".$pledge."\",\n";
   echo "pledgeNotes: \"".$pledgeNotes."\",\n";
   echo "guests: \"".$guests."\",\n";
@@ -179,6 +182,7 @@ echo "});\n";
     6:58  Sgt. at Arms
     <input ng-model="user.sgtAtArms" name="sgtAtArms" type="text" value="<?php echo $sgtAtArms; ?>">
     announced a 2 minute warning.</br>
+    Attendees:<input ng-model="user.attendees" name="attendees" type="text" value="<?php echo $attendees; ?>" class="w3-animate-input">
     7 PM  Sgt. at Arms
     <input ng-model="user.sgtAtArms" name="sgtAtArms" type="text" value="<?php echo $sgtAtArms; ?>">
     called the meeting to attention.  Acting President/Presiding Officer
