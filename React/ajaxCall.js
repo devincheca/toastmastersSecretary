@@ -5,15 +5,24 @@ var ServerCall =
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        document.getElementById('displayResponse').innerHTML = this.responseText;
+        var wholeDate = Date() + "";
+        var hours = wholeDate.substr(16,2) % 12;
+        var minutes = wholeDate.substr(19,2);
+        document.getElementById('displayResponse').innerHTML = 
+          this.responseText 
+          + " " 
+          + hours
+          + ":"
+          + minutes;
       }
     } 
-    xhttp.open('GET', ServerCall.stringify(appState), true);
-    xhttp.send();
+    xhttp.open('POST', 'https://localbz.co/TM/writeNReply.php', true);
+    xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhttp.send(ServerCall.stringify(appState));
   },
   stringify: function toString(appState)
   {
-    var requestString = "http://localbz.co/TM/writeNReply.php?";
+    var requestString = "";
     requestString += "date=" + appState.date + "&";
     requestString += "sgtAtArms=" + appState.sgtAtArms + "&";
     requestString += "president=" + appState.president + "&";
