@@ -211,11 +211,37 @@ handleUserInput(input, updateType)
 }
 handleSubmit(appState)
 {
+  /*
+  need to omit $_POST line in writeNReply.php for ajax to work
   Ajax.request(appState)
     .then((res) => 
     {
       this.setState({
         saveTime: res
+      });
+    });*/
+    fetch('https://localbz.co/TM/minutes/writeNReply.php', 
+    {
+      method: 'POST',
+      body: JSON.stringify(appState)
+    })
+    .then((response) =>
+    {
+      return response.text();
+    })
+    .then((text) =>
+    {
+      var wholeDate = Date() + "";
+      var hours = wholeDate.substr(16,2) % 12;
+      var minutes = wholeDate.substr(19,2);
+      var res = "" +
+        text 
+        + " " 
+        + hours
+        + ":"
+        + minutes;
+      this.setState({
+          saveTime: res
       });
     });
 }

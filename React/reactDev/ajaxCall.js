@@ -18,7 +18,7 @@ var ServerCall =
         resolve(res);
       }
     } 
-    xhttp.open('POST', 'https://localbz.co/TM/writeNReply.php', true);
+    xhttp.open('POST', 'https://localbz.co/TM/minutes/writeNReply.php', true);
     xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xhttp.send(ServerCall.stringify(appState));
     });

@@ -1,4 +1,5 @@
 <?php
+  $_POST = json_decode(file_get_contents('php://input'), true);
   if ($_POST["attendees"] != "") 
   {
     if ($_POST["sgtAtArms"] == "") 
@@ -70,8 +71,8 @@
       <title>".$_POST["date"]."</title>\n
       <link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n
     </head>\n
-    <body class=\"w3-black\">\n");
-    fwrite($toFile,"<div class=\"w3-center w3-medium w3-text-white\">\n");
+    <body class=\"w3-pale-blue w3-large\">\n");
+    fwrite($toFile,"<div class=\"\">\n");
     fwrite($toFile, "<div>DREAMBUILDERS TOASTMASTERS CLUB MINUTES for ".$_POST["date"]."</div>\n");
     fwrite($toFile, "<div>Attendees: ".$_POST["attendees"]."</div>\n");
     fwrite($toFile, "<div>6:58  Sgt. at Arms, ".$_POST["sgtAtArms"]." announced a 2 minute warning.</div>\n");
@@ -89,29 +90,29 @@
     fwrite($toFile, "<div>Timer: ".$_POST["timer"]."</div>\n");
     fwrite($toFile, "<div>7:28  Networking Session with Networking Master ".$_POST["networkMaster"]."</div>\n");
     fwrite($toFile, "<div>Respondent / Time</div>\n");
-    if ($_POST["respondent1"] !== "") { fwrite($toFile, "".$_POST["respondent1"]." / ".$_POST["respondent1Time"]."\n"); }
-    if ($_POST["respondent2"] !== "") { fwrite($toFile, "".$_POST["respondent2"]." / ".$_POST["respondent2Time"]."\n"); }
-    if ($_POST["respondent3"] !== "") { fwrite($toFile, "".$_POST["respondent3"]." / ".$_POST["respondent3Time"]."\n"); }
-    if ($_POST["respondent4"] !== "") { fwrite($toFile, "".$_POST["respondent4"]." / ".$_POST["respondent4Time"]."\n"); }
-    if ($_POST["respondent5"] !== "") { fwrite($toFile, "".$_POST["respondent5"]." / ".$_POST["respondent5Time"]."\n"); }
+    if ($_POST["respondent1"] !== "") { fwrite($toFile, "<div>".$_POST["respondent1"]." / ".$_POST["respondent1Time"]."</div>\n"); }
+    if ($_POST["respondent2"] !== "") { fwrite($toFile, "<div>".$_POST["respondent2"]." / ".$_POST["respondent2Time"]."</div>\n"); }
+    if ($_POST["respondent3"] !== "") { fwrite($toFile, "<div>".$_POST["respondent3"]." / ".$_POST["respondent3Time"]."</div>\n"); }
+    if ($_POST["respondent4"] !== "") { fwrite($toFile, "<div>".$_POST["respondent4"]." / ".$_POST["respondent4Time"]."</div>\n"); }
+    if ($_POST["respondent5"] !== "") { fwrite($toFile, "<div>".$_POST["respondent5"]." / ".$_POST["respondent5Time"]."</div>\n"); }
     fwrite($toFile,"</div>\n");
     fwrite($toFile, "<div>7:48  Ten Minute Break</div>\n");
     fwrite($toFile, "<div>7:58  The meeting was called back into session.</div>\n");
     fwrite($toFile, "<div>8:05  Prepared Speech(es)</div>\n");
     fwrite($toFile, "<div>Speaker / Time\n");
-    if ($_POST["speaker1"] !== "") { fwrite($toFile, "".$_POST["speaker1"]." / ".$_POST["speaker1Time"]."\n"); }
-    if ($_POST["speaker2"] !== "") { fwrite($toFile, "".$_POST["speaker2"]." / ".$_POST["speaker2Time"]."\n"); }
-    if ($_POST["speaker3"] !== "") { fwrite($toFile, "".$_POST["speaker3"]." / ".$_POST["speaker3Time"]."\n"); }
-    if ($_POST["speaker4"] !== "") { fwrite($toFile, "".$_POST["speaker4"]." / ".$_POST["speaker4Time"]."\n"); }
-    if ($_POST["speaker5"] !== "") { fwrite($toFile, "".$_POST["speaker5"]." / ".$_POST["speaker5Time"]."\n"); }
+    if ($_POST["speaker1"] !== "") { fwrite($toFile, "<div>".$_POST["speaker1"]." / ".$_POST["speaker1Time"]."</div>\n"); }
+    if ($_POST["speaker2"] !== "") { fwrite($toFile, "<div>".$_POST["speaker2"]." / ".$_POST["speaker2Time"]."</div>\n"); }
+    if ($_POST["speaker3"] !== "") { fwrite($toFile, "<div>".$_POST["speaker3"]." / ".$_POST["speaker3Time"]."</div>\n"); }
+    if ($_POST["speaker4"] !== "") { fwrite($toFile, "<div>".$_POST["speaker4"]." / ".$_POST["speaker4Time"]."</div>\n"); }
+    if ($_POST["speaker5"] !== "") { fwrite($toFile, "<div>".$_POST["speaker5"]." / ".$_POST["speaker5Time"]."</div>\n"); }
     fwrite($toFile,"</div>\n");
     fwrite($toFile, "<div>8:09   Evaluation Session:</div>\n");
     fwrite($toFile, "<div>Evaluator / Time\n");
-    if ($_POST["evaluator1"] !== "") { fwrite($toFile, "".$_POST["evaluator1"]." / ".$_POST["evaluator1Time"]."\n"); }
-    if ($_POST["evaluator2"] !== "") { fwrite($toFile, "".$_POST["evaluator2"]." / ".$_POST["evaluator2Time"]."\n"); }
-    if ($_POST["evaluator3"] !== "") { fwrite($toFile, "".$_POST["evaluator3"]." / ".$_POST["evaluator3Time"]."\n"); }
-    if ($_POST["evaluator4"] !== "") { fwrite($toFile, "".$_POST["evaluator4"]." / ".$_POST["evaluator4Time"]."\n"); }
-    if ($_POST["evaluator5"] !== "") { fwrite($toFile, "".$_POST["evaluator5"]." / ".$_POST["evaluator5Time"]."\n"); }
+    if ($_POST["evaluator1"] !== "") { fwrite($toFile, "<div>".$_POST["evaluator1"]." / ".$_POST["evaluator1Time"]."</div>\n"); }
+    if ($_POST["evaluator2"] !== "") { fwrite($toFile, "<div>".$_POST["evaluator2"]." / ".$_POST["evaluator2Time"]."</div>\n"); }
+    if ($_POST["evaluator3"] !== "") { fwrite($toFile, "<div>".$_POST["evaluator3"]." / ".$_POST["evaluator3Time"]."</div>\n"); }
+    if ($_POST["evaluator4"] !== "") { fwrite($toFile, "<div>".$_POST["evaluator4"]." / ".$_POST["evaluator4Time"]."</div>\n"); }
+    if ($_POST["evaluator5"] !== "") { fwrite($toFile, "<div>".$_POST["evaluator5"]." / ".$_POST["evaluator5Time"]."</div>\n"); }
     fwrite($toFile,"</div>\n");
     fwrite($toFile, "<div>General Evaluator ".$_POST["generalEvaluator"]." led the Evaluation Session.</div>\n");
     fwrite($toFile, "<div>Grammarian, ".$_POST["grammarian"].", noted use of the Word of the Day and Interesting Phrases.</div>\n");
