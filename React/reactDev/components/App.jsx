@@ -14,6 +14,7 @@ constructor(props)
   this.state = 
   {
     date: finalDate,
+    reqDate: "",
     saveTime: "",
     sgtAtArms: "",
     president: "",
@@ -63,6 +64,7 @@ constructor(props)
     notes: "",
   };
   this.handleUserInput = this.handleUserInput.bind(this);
+  this.handleMinReq = this.handleMinReq.bind(this);
 }
 handleUserInput(input, updateType)
 {
@@ -209,6 +211,65 @@ handleUserInput(input, updateType)
       break;
   }
 }
+handleRefresh()
+{
+  fetch('https://localbz.co/TM/minutes/' + this.state.date + '.json')
+  .then((response) => 
+  {
+    return response.json();
+  })
+  .then((initState) => 
+  {
+    this.setState({
+      sgtAtArms: initState.sgtAtArms,
+      president: initState.president,
+      attendees: initState.attendees,
+      pledge: initState.pledge,
+      pledgeNotes: initState.pledgeNotes,
+      guests: initState.guests,
+      businessNotes: initState.businessNotes,
+      toastmaster: initState.toastmaster,
+      generalEvaluator: initState.generalEvaluator,
+      grammarian: initState.grammarian,
+      wordOfTheDay: initState.wordOfTheDay,
+      ahCounter: initState.ahCounter,
+      timer: initState.timer,
+      networkMaster: initState.networkMaster,
+      respondent1: initState.respondent1,
+      respondent1Time: initState.respondent1Time,
+      respondent2: initState.respondent2,
+      respondent2Time: initState.respondent2Time,
+      respondent3: initState.respondent3,
+      respondent3Time: initState.respondent3Time,
+      respondent4: initState.respondent4,
+      respondent4Time: initState.respondent4Time,
+      respondent5: initState.respondent5,
+      respondent5Time: initState.respondent5Time,
+      speaker1: initState.speaker1,
+      speaker1Time: initState.speaker1Time,
+      speaker2: initState.speaker2,
+      speaker2Time: initState.speaker2Time,
+      speaker3: initState.speaker3,
+      speaker3Time: initState.speaker3Time,
+      speaker4: initState.speaker4,
+      speaker4Time: initState.speaker4Time,
+      speaker5: initState.speaker5,
+      speaker5Time: initState.speaker5Time,
+      evaluator1: initState.evaluator1,
+      evaluator1Time: initState.evaluator1Time,
+      evaluator2: initState.evaluator2,
+      evaluator2Time: initState.evaluator2Time,
+      evaluator3: initState.evaluator3,
+      evaluator3Time: initState.evaluator3Time,
+      evaluator4: initState.evaluator4,
+      evaluator4Time: initState.evaluator4Time,
+      evaluator5: initState.evaluator5,
+      evaluator5Time: initState.evaluator5Time,
+      GEnotes: initState.GEnotes,
+      notes: initState.notes,
+  });
+  })
+}
 handleSubmit(appState)
 {
   /*
@@ -245,9 +306,23 @@ handleSubmit(appState)
       });
     });
 }
+handleMinReq(date, placeholder)
+{
+  this.setState({
+    reqDate: date
+  });
+}
 render() {
   return (
     <div className="w3-center">
+    <button 
+      type="submit" 
+      className="w3-btn w3-ripple w3-white w3-hover-green"
+      name="Refresh" 
+      value="refresh" 
+      onClick={ () => this.handleRefresh() }>
+      Retrieve Saved Minutes from Database
+    </button>
     <Input name="date" type="text" value={this.state.date} placeholder={this.state.date} prefix="DREAMBUILDERS TOASTMATERS CLUB MINUTES for" />
     <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="6:58  Sgt. at Arms" suffix="announced a 2 minute warning." />
     <Input name="attendees" type="text" value={this.state.attendees} placeholder="attendees" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="Attendees:"/>
@@ -414,12 +489,31 @@ render() {
     <div className="w3-blue">{this.state.saveTime}</div>
     <button 
       type="submit" 
-      className="w3-btn w3-ripple w3-white w3-hover-green" 
+      className="w3-btn w3-ripple w3-white w3-hover-green"
       name="submit" 
       value="Save" 
       onClick={ () => this.handleSubmit(this.state) }>
       Save
     </button>
+    <br />
+    <div>
+      <Input
+        name=""
+        type="text"
+        placeholder="Jan 01, 2111"
+        value={this.state.reqDate}
+        onUserInput={this.handleMinReq}
+        prefix="Input date to retrieve minutes formatted as follows:">
+      </Input>
+      <a
+        target="_blank"
+        href={'https://localbz.co/TM/minutes/' + this.state.reqDate + '.html'}>
+        <button
+          className="w3-btn w3-ripple w3-white w3-hover-green">
+          Open
+        </button>
+      </a>
+    </div>
     </div>
   );
 }

@@ -2,6 +2,10 @@
   $_POST = json_decode(file_get_contents('php://input'), true);
   if ($_POST["attendees"] != "") 
   {
+    $toFile = fopen($_POST["date"].".json", "w") or die("Unable to open file!");
+    fwrite($toFile, file_get_contents('php://input'));
+    fclose($toFile);
+    $_POST = json_decode(file_get_contents('php://input'), true);
     if ($_POST["sgtAtArms"] == "") 
     { 
       "Cossette Strassberg"; 
