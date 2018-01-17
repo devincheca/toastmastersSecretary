@@ -14,6 +14,10 @@ constructor(props)
   this.state = 
   {
     date: finalDate,
+    startTime: "",
+    breakStart: "",
+    breakReturn: "",
+    endTime: "",
     reqDate: "",
     saveTime: "",
     sgtAtArms: "",
@@ -71,6 +75,18 @@ handleUserInput(input, updateType)
   switch (updateType) {
     case "sgtAtArms":
       this.setState({ sgtAtArms: input });
+      break;
+    case "startTime":
+      this.setState({ startTime: input })
+      break;
+    case "breakStart":
+      this.setState({ breakStart: input })
+      break;
+    case "breakReturn":
+      this.setState({ breakReturn: input })
+      break;
+    case "endTime":
+      this.setState({ endTime: input })
       break;
     case "president":
       this.setState({ president: input });
@@ -221,6 +237,10 @@ handleRefresh()
   .then((initState) => 
   {
     this.setState({
+      startTime: initState.startTime,
+      breakStart: initState.breakStart,
+      breakReturn: initState.breakReturn,
+      endTime: initState.endTime,
       sgtAtArms: initState.sgtAtArms,
       president: initState.president,
       attendees: initState.attendees,
@@ -326,20 +346,21 @@ render() {
     <Input name="date" type="text" value={this.state.date} placeholder={this.state.date} prefix="DREAMBUILDERS TOASTMATERS CLUB MINUTES for" />
     <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="6:58  Sgt. at Arms" suffix="announced a 2 minute warning." />
     <Input name="attendees" type="text" value={this.state.attendees} placeholder="attendees" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="Attendees:"/>
-    <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="7 PM  Sgt. at Arms" suffix="called the meeting to attention." />
+    <Input name="startTime" type="text" value={this.state.startTime} placeholder="startTime" onUserInput={this.handleUserInput} prefix="Start Time:" suffix="" />
+    <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="Sgt. at Arms" suffix="called the meeting to attention." />
     <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="Acting President/Presiding Officer" suffix="called the meeting to order." />
-    <Input name="pledge" type="text" value={this.state.pledge} placeholder="pledge" onUserInput={this.handleUserInput} prefix="7:02" suffix="led the club in the Pledge of Allegiance." />
+    <Input name="pledge" type="text" value={this.state.pledge} placeholder="pledge" onUserInput={this.handleUserInput} prefix="" suffix="led the club in the Pledge of Allegiance." />
     <Input name="pledgeNotes" type="text" value={this.state.pledgeNotes} placeholder="pledgeNotes" onUserInput={this.handleUserInput} className="w3-animate-input" />
-    <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="7:04  President" suffix="welcomed members and guests," />
+    <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="President" suffix="welcomed members and guests," />
     <Input name="guests" type="text" value={this.state.guests} placeholder="guests" onUserInput={this.handleUserInput} className="w3-animate-input" />
     <Input name="businessNotes" type="text" value={this.state.businessNotes} placeholder="businessNotes" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="During the business meeting," />
-    <Input name="toastmaster" type="text" value={this.state.toastmaster} placeholder="toastmaster" onUserInput={this.handleUserInput} prefix="7:15  Toastmaster" suffix="was called to the lectern. She made her opening comments and adjusted the agenda." />
-    <Input name="generalEvaluator" type="text" value={this.state.generalEvaluator} placeholder="generalEvaluator" onUserInput={this.handleUserInput} prefix="7:20  General Evaluator" suffix="discussed her duties and called on her team of functionaries." /> 
+    <Input name="toastmaster" type="text" value={this.state.toastmaster} placeholder="toastmaster" onUserInput={this.handleUserInput} prefix="Toastmaster" suffix="was called to the lectern. She made her opening comments and adjusted the agenda." />
+    <Input name="generalEvaluator" type="text" value={this.state.generalEvaluator} placeholder="generalEvaluator" onUserInput={this.handleUserInput} prefix="General Evaluator" suffix="discussed her duties and called on her team of functionaries." /> 
     <Input name="grammarian" type="text" value={this.state.grammarian} placeholder="grammarian" onUserInput={this.handleUserInput} prefix="Grammarian:" />
     <Input name="wordOfTheDay" type="text" value={this.state.wordOfTheDay} placeholder="wordOfTheDay" onUserInput={this.handleUserInput} prefix="Word of the Day" />
     <Input name="ahCounter" type="text" value={this.state.ahCounter} placeholder="ahCounter" onUserInput={this.handleUserInput} prefix="Ah Counter" />
     <Input name="timer" type="text" value={this.state.timer} placeholder="timer" onUserInput={this.handleUserInput} prefix="Timer:" />
-    <Input name="networkMaster" type="text" value={this.state.networkMaster} placeholder="networkMaster" onUserInput={this.handleUserInput} prefix="7:28  Networking Session with Networking Master" />
+    <Input name="networkMaster" type="text" value={this.state.networkMaster} placeholder="networkMaster" onUserInput={this.handleUserInput} prefix="Networking Session with Networking Master" />
     <div className="w3-center w3-row">
       <div className="w3-col s6">Respondents</div>
       <div className="w3-col s6">Time</div>
@@ -384,6 +405,8 @@ render() {
       <Input name="respondent5Time" type="text" value={this.state.respondent5Time} placeholder="respondent5Time" onUserInput={this.handleUserInput} />
     </div>
     </div>
+    <Input name="breakStart" type="text" value={this.state.breakStart} placeholder="breakStart" onUserInput={this.handleUserInput} prefix="Break Start Time:" suffix="" />
+    <Input name="breakReturn" type="text" value={this.state.breakReturn} placeholder="breakReturn" onUserInput={this.handleUserInput} prefix="Break Return Time:" suffix="" />
     Prepared Speech(es)
     <div className="w3-center w3-row">
       <div className="w3-col s6">Speakers</div>
@@ -484,6 +507,7 @@ render() {
     <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="President" suffix="called on guests" />
     <Input name="guests" type="text" value={this.state.guests} placeholder="guests" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="to give their impression of the meeting." />
     <Input name="notes" type="text" value={this.state.notes} placeholder="notes" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="Notes:" />
+    <Input name="endTime" type="text" value={this.state.endTime} placeholder="endTime" onUserInput={this.handleUserInput} prefix="End Time:" suffix="" />
     <div>Attendees were reminded to leave a tip for the servers.</div>
     <div>Meeting adjourned.</div>
     <div className="w3-blue">{this.state.saveTime}</div>
