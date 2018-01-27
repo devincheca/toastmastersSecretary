@@ -301,10 +301,25 @@ handleSubmit(appState)
         saveTime: res
       });
     });*/
+    function cleanString (dirty, extract)
+    {
+      let clean = dirty.replace(extract,'')
+      return clean.search(extract) >= 0
+        ? cleanString(dirty.replace(extract,''),extract)
+        : dirty.replace(extract,'');
+    }
+    var x;
+    for (x in appState)
+    {
+      appState[x] = cleanString(appState[x],'<');
+      appState[x] = cleanString(appState[x],'>');
+      appState[x] = cleanString(appState[x],'{');
+      appState[x] = cleanString(appState[x],'}');
+    }
     fetch('https://localbz.co/TM/minutes/writeNReply.php', 
     {
       method: 'POST',
-      body: JSON.stringify(appState)
+      body: JSON.stringify(appState),
     })
     .then((response) =>
     {
