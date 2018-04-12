@@ -1,4 +1,6 @@
 import React from "react";
+import Ajax from "../ajaxCall.js";
+import axios from "axios";
 import Input from "./input.jsx";
 class App extends React.Component 
 {
@@ -13,6 +15,12 @@ constructor(props)
   this.state = 
   {
     date: finalDate,
+    startTime: "",
+    breakStart: "",
+    breakReturn: "",
+    endTime: "",
+    reqDate: "",
+    saveTime: "",
     sgtAtArms: "",
     president: "",
     attendees: "",
@@ -61,13 +69,25 @@ constructor(props)
     notes: "",
   };
   this.handleUserInput = this.handleUserInput.bind(this);
+  this.handleMinReq = this.handleMinReq.bind(this);
 }
 handleUserInput(input, updateType)
 {
-  // then add URL Params to retrieve and render state from server
   switch (updateType) {
     case "sgtAtArms":
       this.setState({ sgtAtArms: input });
+      break;
+    case "startTime":
+      this.setState({ startTime: input })
+      break;
+    case "breakStart":
+      this.setState({ breakStart: input })
+      break;
+    case "breakReturn":
+      this.setState({ breakReturn: input })
+      break;
+    case "endTime":
+      this.setState({ endTime: input })
       break;
     case "president":
       this.setState({ president: input });
@@ -208,40 +228,218 @@ handleUserInput(input, updateType)
       break;
   }
 }
-toServer()
+updateState(initState)
 {
-  /*for (x in this.state)
+  this.setState({
+    startTime: initState.startTime,
+    breakStart: initState.breakStart,
+    breakReturn: initState.breakReturn,
+    endTime: initState.endTime,
+    sgtAtArms: initState.sgtAtArms,
+    president: initState.president,
+    attendees: initState.attendees,
+    pledge: initState.pledge,
+    pledgeNotes: initState.pledgeNotes,
+    guests: initState.guests,
+    businessNotes: initState.businessNotes,
+    toastmaster: initState.toastmaster,
+    generalEvaluator: initState.generalEvaluator,
+    grammarian: initState.grammarian,
+    wordOfTheDay: initState.wordOfTheDay,
+    ahCounter: initState.ahCounter,
+    timer: initState.timer,
+    networkMaster: initState.networkMaster,
+    respondent1: initState.respondent1,
+    respondent1Time: initState.respondent1Time,
+    respondent2: initState.respondent2,
+    respondent2Time: initState.respondent2Time,
+    respondent3: initState.respondent3,
+    respondent3Time: initState.respondent3Time,
+    respondent4: initState.respondent4,
+    respondent4Time: initState.respondent4Time,
+    respondent5: initState.respondent5,
+    respondent5Time: initState.respondent5Time,
+    speaker1: initState.speaker1,
+    speaker1Time: initState.speaker1Time,
+    speaker2: initState.speaker2,
+    speaker2Time: initState.speaker2Time,
+    speaker3: initState.speaker3,
+    speaker3Time: initState.speaker3Time,
+    speaker4: initState.speaker4,
+    speaker4Time: initState.speaker4Time,
+    speaker5: initState.speaker5,
+    speaker5Time: initState.speaker5Time,
+    evaluator1: initState.evaluator1,
+    evaluator1Time: initState.evaluator1Time,
+    evaluator2: initState.evaluator2,
+    evaluator2Time: initState.evaluator2Time,
+    evaluator3: initState.evaluator3,
+    evaluator3Time: initState.evaluator3Time,
+    evaluator4: initState.evaluator4,
+    evaluator4Time: initState.evaluator4Time,
+    evaluator5: initState.evaluator5,
+    evaluator5Time: initState.evaluator5Time,
+    GEnotes: initState.GEnotes,
+    notes: initState.notes
+  });
+}
+handleRefresh(appState)
+{
+  axios.get('https://localbz.co/TM/minutes/' + this.state.date + '.json')
+  .then((response) =>
   {
-<form method="get" action="/TM/index.php">
-<button type="submit" className="w3-btn w3-ripple w3-white w3-hover-green" name="submit" value="Save" onClick={this.toServer}>Save</button>
-  }*/
+    console.log(response.data);
+    this.setState({
+      startTime: response.data.startTime,
+      breakStart: response.data.breakStart,
+      breakReturn: response.data.breakReturn,
+      endTime: response.data.endTime,
+      sgtAtArms: response.data.sgtAtArms,
+      president: response.data.president,
+      attendees: response.data.attendees,
+      pledge: response.data.pledge,
+      pledgeNotes: response.data.pledgeNotes,
+      guests: response.data.guests,
+      businessNotes: response.data.businessNotes,
+      toastmaster: response.data.toastmaster,
+      generalEvaluator: response.data.generalEvaluator,
+      grammarian: response.data.grammarian,
+      wordOfTheDay: response.data.wordOfTheDay,
+      ahCounter: response.data.ahCounter,
+      timer: response.data.timer,
+      networkMaster: response.data.networkMaster,
+      respondent1: response.data.respondent1,
+      respondent1Time: response.data.respondent1Time,
+      respondent2: response.data.respondent2,
+      respondent2Time: response.data.respondent2Time,
+      respondent3: response.data.respondent3,
+      respondent3Time: response.data.respondent3Time,
+      respondent4: response.data.respondent4,
+      respondent4Time: response.data.respondent4Time,
+      respondent5: response.data.respondent5,
+      respondent5Time: response.data.respondent5Time,
+      speaker1: response.data.speaker1,
+      speaker1Time: response.data.speaker1Time,
+      speaker2: response.data.speaker2,
+      speaker2Time: response.data.speaker2Time,
+      speaker3: response.data.speaker3,
+      speaker3Time: response.data.speaker3Time,
+      speaker4: response.data.speaker4,
+      speaker4Time: response.data.speaker4Time,
+      speaker5: response.data.speaker5,
+      speaker5Time: response.data.speaker5Time,
+      evaluator1: response.data.evaluator1,
+      evaluator1Time: response.data.evaluator1Time,
+      evaluator2: response.data.evaluator2,
+      evaluator2Time: response.data.evaluator2Time,
+      evaluator3: response.data.evaluator3,
+      evaluator3Time: response.data.evaluator3Time,
+      evaluator4: response.data.evaluator4,
+      evaluator4Time: response.data.evaluator4Time,
+      evaluator5: response.data.evaluator5,
+      evaluator5Time: response.data.evaluator5Time,
+      GEnotes: response.data.GEnotes,
+      notes: response.data.notes
+    });
+  })
+}
+handleSubmit(appState)
+{
+    function cleanString (dirty, extract)
+    {
+      let clean = dirty.replace(extract,'')
+      return clean.search(extract) >= 0
+        ? cleanString(dirty.replace(extract,''),extract)
+        : dirty.replace(extract,'');
+    }
+    var x;
+    for (x in appState)
+    {
+      appState[x] = cleanString(appState[x],'<');
+      appState[x] = cleanString(appState[x],'>');
+      appState[x] = cleanString(appState[x],'{');
+      appState[x] = cleanString(appState[x],'}');
+      appState[x] = cleanString(appState[x],'&');
+      appState[x] = cleanString(appState[x],'#');
+    }
+    try
+    {
+      fetch('https://localbz.co/TM/minutes/753159.php', 
+      {
+        method: 'POST',
+        body: JSON.stringify(appState),
+      })
+      .then((response) =>
+      {
+        return response.text();
+      })
+      .then((text) =>
+      {
+        var wholeDate = Date() + "";
+        var hours = wholeDate.substr(16,2) % 12;
+        var minutes = wholeDate.substr(19,2);
+        var res = "" +
+          text 
+          + " " 
+          + hours
+          + ":"
+          + minutes;
+        this.setState({
+            saveTime: res
+        });
+      });
+    }
+    catch(e)
+    {
+      Ajax.request(appState)
+      .then((res) => 
+      {
+        this.setState({
+          saveTime: res
+        });
+      });
+    }
+}
+handleMinReq(date, placeholder)
+{
+  this.setState({
+    reqDate: date
+  });
 }
 render() {
   return (
     <div className="w3-center">
-    
+    <button 
+      type="submit" 
+      className="w3-btn w3-ripple w3-white w3-hover-green"
+      name="Refresh" 
+      value="refresh" 
+      onClick={ () => this.handleRefresh(this.state) }>
+      Retrieve Saved Minutes from Database
+    </button>
     <Input name="date" type="text" value={this.state.date} placeholder={this.state.date} prefix="DREAMBUILDERS TOASTMATERS CLUB MINUTES for" />
     <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="6:58  Sgt. at Arms" suffix="announced a 2 minute warning." />
     <Input name="attendees" type="text" value={this.state.attendees} placeholder="attendees" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="Attendees:"/>
-    <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="7 PM  Sgt. at Arms" suffix="called the meeting to attention." />
+    <Input name="startTime" type="text" value={this.state.startTime} placeholder="startTime" onUserInput={this.handleUserInput} prefix="Start Time:" suffix="" />
+    <Input name="sgtAtArms" type="text" value={this.state.sgtAtArms} placeholder="sgtAtArms" onUserInput={this.handleUserInput} prefix="Sgt. at Arms" suffix="called the meeting to attention." />
     <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="Acting President/Presiding Officer" suffix="called the meeting to order." />
-    <Input name="pledge" type="text" value={this.state.pledge} placeholder="pledge" onUserInput={this.handleUserInput} prefix="7:02" suffix="led the club in the Pledge of Allegiance." />
+    <Input name="pledge" type="text" value={this.state.pledge} placeholder="pledge" onUserInput={this.handleUserInput} prefix="" suffix="led the club in the Pledge of Allegiance." />
     <Input name="pledgeNotes" type="text" value={this.state.pledgeNotes} placeholder="pledgeNotes" onUserInput={this.handleUserInput} className="w3-animate-input" />
-    <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="7:04  President" suffix="welcomed members and guests," />
+    <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="President" suffix="welcomed members and guests," />
     <Input name="guests" type="text" value={this.state.guests} placeholder="guests" onUserInput={this.handleUserInput} className="w3-animate-input" />
     <Input name="businessNotes" type="text" value={this.state.businessNotes} placeholder="businessNotes" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="During the business meeting," />
-    <Input name="toastmaster" type="text" value={this.state.toastmaster} placeholder="toastmaster" onUserInput={this.handleUserInput} prefix="7:15  Toastmaster" suffix="was called to the lectern. She made her opening comments and adjusted the agenda." />
-    <Input name="generalEvaluator" type="text" value={this.state.generalEvaluator} placeholder="generalEvaluator" onUserInput={this.handleUserInput} prefix="7:20  General Evaluator" suffix="discussed her duties and called on her team of functionaries." /> 
+    <Input name="toastmaster" type="text" value={this.state.toastmaster} placeholder="toastmaster" onUserInput={this.handleUserInput} prefix="Toastmaster" suffix="was called to the lectern. She made her opening comments and adjusted the agenda." />
+    <Input name="generalEvaluator" type="text" value={this.state.generalEvaluator} placeholder="generalEvaluator" onUserInput={this.handleUserInput} prefix="General Evaluator" suffix="discussed her duties and called on her team of functionaries." /> 
     <Input name="grammarian" type="text" value={this.state.grammarian} placeholder="grammarian" onUserInput={this.handleUserInput} prefix="Grammarian:" />
     <Input name="wordOfTheDay" type="text" value={this.state.wordOfTheDay} placeholder="wordOfTheDay" onUserInput={this.handleUserInput} prefix="Word of the Day" />
     <Input name="ahCounter" type="text" value={this.state.ahCounter} placeholder="ahCounter" onUserInput={this.handleUserInput} prefix="Ah Counter" />
     <Input name="timer" type="text" value={this.state.timer} placeholder="timer" onUserInput={this.handleUserInput} prefix="Timer:" />
-    <Input name="networkMaster" type="text" value={this.state.networkMaster} placeholder="networkMaster" onUserInput={this.handleUserInput} prefix="7:28  Networking Session with Networking Master" />
+    <Input name="networkMaster" type="text" value={this.state.networkMaster} placeholder="networkMaster" onUserInput={this.handleUserInput} prefix="Networking Session with Networking Master" />
     <div className="w3-center w3-row">
       <div className="w3-col s6">Respondents</div>
       <div className="w3-col s6">Time</div>
     </div>
-    <div class="w3-center w3-row">
+    <div className="w3-center w3-row">
       <div className="w3-col s6">
         <Input name="respondent1" type="text" value={this.state.respondent1} placeholder="respondent1" onUserInput={this.handleUserInput} />
       </div>
@@ -281,12 +479,14 @@ render() {
       <Input name="respondent5Time" type="text" value={this.state.respondent5Time} placeholder="respondent5Time" onUserInput={this.handleUserInput} />
     </div>
     </div>
+    <Input name="breakStart" type="text" value={this.state.breakStart} placeholder="breakStart" onUserInput={this.handleUserInput} prefix="Break Start Time:" suffix="" />
+    <Input name="breakReturn" type="text" value={this.state.breakReturn} placeholder="breakReturn" onUserInput={this.handleUserInput} prefix="Break Return Time:" suffix="" />
     Prepared Speech(es)
     <div className="w3-center w3-row">
       <div className="w3-col s6">Speakers</div>
       <div className="w3-col s6">Time</div>
     </div>
-    <div class="w3-center w3-row">
+    <div className="w3-center w3-row">
       <div className="w3-col s6">
         <Input name="speaker1" type="text" value={this.state.speaker1} placeholder="speaker1" onUserInput={this.handleUserInput} />
       </div>
@@ -296,7 +496,7 @@ render() {
     </div>
     <div className="w3-center w3-row">
     <div className="w3-col s6">
-    7  <Input name="speaker2" type="text" value={this.state.speaker2} placeholder="speaker2" onUserInput={this.handleUserInput} />
+      <Input name="speaker2" type="text" value={this.state.speaker2} placeholder="speaker2" onUserInput={this.handleUserInput} />
     </div>
     <div className="w3-col s6">
       <Input name="speaker2Time" type="text" value={this.state.speaker2Time} placeholder="speaker2Time" onUserInput={this.handleUserInput} />
@@ -331,7 +531,7 @@ render() {
       <div className="w3-col s6">Evaluators</div>
       <div className="w3-col s6">Time</div>
     </div>
-    <div class="w3-center w3-row">
+    <div className="w3-center w3-row">
       <div className="w3-col s6">
         <Input name="evaluator1" type="text" value={this.state.evaluator1} placeholder="evaluator1" onUserInput={this.handleUserInput} />
       </div>
@@ -381,11 +581,37 @@ render() {
     <Input name="president" type="text" value={this.state.president} placeholder="president" onUserInput={this.handleUserInput} prefix="President" suffix="called on guests" />
     <Input name="guests" type="text" value={this.state.guests} placeholder="guests" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="to give their impression of the meeting." />
     <Input name="notes" type="text" value={this.state.notes} placeholder="notes" onUserInput={this.handleUserInput} className="w3-animate-input" prefix="Notes:" />
+    <Input name="endTime" type="text" value={this.state.endTime} placeholder="endTime" onUserInput={this.handleUserInput} prefix="End Time:" suffix="" />
     <div>Attendees were reminded to leave a tip for the servers.</div>
     <div>Meeting adjourned.</div>
-    
-
-
+    <div className="w3-blue">{this.state.saveTime}</div>
+    <button 
+      type="submit" 
+      className="w3-btn w3-ripple w3-white w3-hover-green"
+      name="submit" 
+      value="Save" 
+      onClick={ () => this.handleSubmit(this.state) }>
+      Save
+    </button>
+    <br />
+    <div>
+      <Input
+        name=""
+        type="text"
+        placeholder="Jan 01, 2111"
+        value={this.state.reqDate}
+        onUserInput={this.handleMinReq}
+        prefix="Input date to retrieve minutes formatted as follows:">
+      </Input>
+      <a
+        target="_blank"
+        href={'https://localbz.co/TM/minutes/' + this.state.reqDate + '.html'}>
+        <button
+          className="w3-btn w3-ripple w3-white w3-hover-green">
+          Open
+        </button>
+      </a>
+    </div>
     </div>
   );
 }
