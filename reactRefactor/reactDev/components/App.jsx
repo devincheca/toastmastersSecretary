@@ -2,6 +2,7 @@ import React from "react";
 import Ajax from "../ajaxCall.js";
 import axios from "axios";
 import Input from "./input.jsx";
+import Spinner from "react-spinner";
 class App extends React.Component 
 {
 constructor(props) 
@@ -67,6 +68,8 @@ constructor(props)
     evaluator5Time: "",
     GEnotes: "",
     notes: "",
+    topSpinnerShow: "",
+    bottomSpinnerShow: "",
   };
   this.handleUserInput = this.handleUserInput.bind(this);
   this.handleMinReq = this.handleMinReq.bind(this);
@@ -228,67 +231,14 @@ handleUserInput(input, updateType)
       break;
   }
 }
-updateState(initState)
-{
-  this.setState({
-    startTime: initState.startTime,
-    breakStart: initState.breakStart,
-    breakReturn: initState.breakReturn,
-    endTime: initState.endTime,
-    sgtAtArms: initState.sgtAtArms,
-    president: initState.president,
-    attendees: initState.attendees,
-    pledge: initState.pledge,
-    pledgeNotes: initState.pledgeNotes,
-    guests: initState.guests,
-    businessNotes: initState.businessNotes,
-    toastmaster: initState.toastmaster,
-    generalEvaluator: initState.generalEvaluator,
-    grammarian: initState.grammarian,
-    wordOfTheDay: initState.wordOfTheDay,
-    ahCounter: initState.ahCounter,
-    timer: initState.timer,
-    networkMaster: initState.networkMaster,
-    respondent1: initState.respondent1,
-    respondent1Time: initState.respondent1Time,
-    respondent2: initState.respondent2,
-    respondent2Time: initState.respondent2Time,
-    respondent3: initState.respondent3,
-    respondent3Time: initState.respondent3Time,
-    respondent4: initState.respondent4,
-    respondent4Time: initState.respondent4Time,
-    respondent5: initState.respondent5,
-    respondent5Time: initState.respondent5Time,
-    speaker1: initState.speaker1,
-    speaker1Time: initState.speaker1Time,
-    speaker2: initState.speaker2,
-    speaker2Time: initState.speaker2Time,
-    speaker3: initState.speaker3,
-    speaker3Time: initState.speaker3Time,
-    speaker4: initState.speaker4,
-    speaker4Time: initState.speaker4Time,
-    speaker5: initState.speaker5,
-    speaker5Time: initState.speaker5Time,
-    evaluator1: initState.evaluator1,
-    evaluator1Time: initState.evaluator1Time,
-    evaluator2: initState.evaluator2,
-    evaluator2Time: initState.evaluator2Time,
-    evaluator3: initState.evaluator3,
-    evaluator3Time: initState.evaluator3Time,
-    evaluator4: initState.evaluator4,
-    evaluator4Time: initState.evaluator4Time,
-    evaluator5: initState.evaluator5,
-    evaluator5Time: initState.evaluator5Time,
-    GEnotes: initState.GEnotes,
-    notes: initState.notes
-  });
-}
 handleRefresh(appState)
 {
-  axios.get('https://localbz.co/TM/minutes/' + this.state.date + '.json')
+  this.setState({
+    topSpinnerShow: "show"
+  });
+  axios.get('https://localbz.co/TMtest/minutes/' + this.state.date + '.json')
   .then((response) =>
   {
-    console.log(response.data);
     this.setState({
       startTime: response.data.startTime,
       breakStart: response.data.breakStart,
@@ -342,63 +292,72 @@ handleRefresh(appState)
       notes: response.data.notes
     });
   })
+  this.setState({
+    topSpinnerShow: ""
+  });
 }
 handleSubmit(appState)
 {
-    function cleanString (dirty, extract)
+  this.setState({
+    spinnerShow: "show"
+  });
+  function cleanString (dirty, extract)
+  {
+    let clean = dirty.replace(extract,'')
+    return clean.search(extract) >= 0
+      ? cleanString(dirty.replace(extract,''),extract)
+      : dirty.replace(extract,'');
+  }
+  var x;
+  for (x in appState)
+  {
+    appState[x] = cleanString(appState[x],'<');
+    appState[x] = cleanString(appState[x],'>');
+    appState[x] = cleanString(appState[x],'{');
+    appState[x] = cleanString(appState[x],'}');
+    appState[x] = cleanString(appState[x],'&');
+    appState[x] = cleanString(appState[x],'#');
+  }
+  try
+  {
+    fetch('https://localbz.co/TMtest/minutes/753159.php', 
     {
-      let clean = dirty.replace(extract,'')
-      return clean.search(extract) >= 0
-        ? cleanString(dirty.replace(extract,''),extract)
-        : dirty.replace(extract,'');
-    }
-    var x;
-    for (x in appState)
+      method: 'POST',
+      body: JSON.stringify(appState),
+    })
+    .then((response) =>
     {
-      appState[x] = cleanString(appState[x],'<');
-      appState[x] = cleanString(appState[x],'>');
-      appState[x] = cleanString(appState[x],'{');
-      appState[x] = cleanString(appState[x],'}');
-      appState[x] = cleanString(appState[x],'&');
-      appState[x] = cleanString(appState[x],'#');
-    }
-    try
+      return response.text();
+    })
+    .then((text) =>
     {
-      fetch('https://localbz.co/TM/minutes/753159.php', 
-      {
-        method: 'POST',
-        body: JSON.stringify(appState),
-      })
-      .then((response) =>
-      {
-        return response.text();
-      })
-      .then((text) =>
-      {
-        var wholeDate = Date() + "";
-        var hours = wholeDate.substr(16,2) % 12;
-        var minutes = wholeDate.substr(19,2);
-        var res = "" +
-          text 
-          + " " 
-          + hours
-          + ":"
-          + minutes;
-        this.setState({
-            saveTime: res
-        });
-      });
-    }
-    catch(e)
-    {
-      Ajax.request(appState)
-      .then((res) => 
-      {
-        this.setState({
+      var wholeDate = Date() + "";
+      var hours = wholeDate.substr(16,2) % 12 === 0 ? 12 : wholeDate.substr(16,2) % 12;
+      var minutes = wholeDate.substr(19,2);
+      var res = "" +
+        text 
+        + " " 
+        + hours
+        + ":"
+        + minutes;
+      this.setState({
           saveTime: res
-        });
       });
-    }
+    });
+  }
+  catch(e)
+  {
+    Ajax.request(appState)
+    .then((res) => 
+    {
+      this.setState({
+        saveTime: res
+      });
+    });
+  }
+  this.setState({
+    spinnerShow: ""
+  });
 }
 handleMinReq(date, placeholder)
 {
@@ -409,6 +368,9 @@ handleMinReq(date, placeholder)
 render() {
   return (
     <div className="w3-center">
+    <div className="w3-white">
+      <Spinner className={ this.state.topSpinnerShow !== "" ? "w3-show" : "w3-hide" } />
+    </div>
     <button 
       type="submit" 
       className="w3-btn w3-ripple w3-white w3-hover-green"
@@ -585,6 +547,9 @@ render() {
     <div>Attendees were reminded to leave a tip for the servers.</div>
     <div>Meeting adjourned.</div>
     <div className="w3-blue">{this.state.saveTime}</div>
+    <div className="w3-white">
+      <Spinner className={ this.state.bottomSpinnerShow !== "" ? "w3-show" : "w3-hide" } />
+    </div>
     <button 
       type="submit" 
       className="w3-btn w3-ripple w3-white w3-hover-green"
@@ -605,7 +570,7 @@ render() {
       </Input>
       <a
         target="_blank"
-        href={'https://localbz.co/TM/minutes/' + this.state.reqDate + '.html'}>
+        href={'https://localbz.co/TMtest/minutes/' + this.state.reqDate + '.html'}>
         <button
           className="w3-btn w3-ripple w3-white w3-hover-green">
           Open
