@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta name="keywords" content="">
+<head>
+  <title>
+    Dreambuilders Meeting Minutes Add User
+  </title>
+ <link rel="stylesheet" href="w3.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body class="w3-blue w3-animate-opacity">
+</br>
+  <div class="w3-light-blue w3-center" id="">
+    <div>Dreambuilders Add Users</div>
+    <div><input autofocus type="text" name="username" value="" placeholder="Username" id="username"></input></div>
+    <div><input type="password" name="password" value="" placeholder="Password" id="password"></input></div>
+    <div><input type="password" name="admincode" value="" placeholder="AdminCode" id="admincode"></input></div>
+    <div><button class="w3-btn w3-ripple" onClick="addUser();" type="submit" name="submit" value="Submit">Add User</button></div>
+    <div id="serverResponse"></div>
+  </div>
+  <script>
+    function addUser()
+    {
+      const domain = 'https://localbz.co/TM/users/';
+      let data = 
+      {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        admincode: document.getElementById("admincode").value
+      };
+      fetch(domain + 'addUser.php',
+      {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then((response) =>
+      {
+        return response.text();
+      })
+      .then((resText) =>
+      {
+        document.getElementById("serverResponse").innerHTML = resText;
+      });
+    }
+  </script>
+</body>
